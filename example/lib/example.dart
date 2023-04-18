@@ -5,7 +5,7 @@ class Example extends StatefulWidget {
   const Example({super.key});
 
   @override
-  _ExampleState createState() => _ExampleState();
+  State<Example> createState() => _ExampleState();
 }
 
 class _ExampleState extends State<Example> {
@@ -16,7 +16,7 @@ class _ExampleState extends State<Example> {
       resizeToAvoidBottomInset: false,
       body: Stack(
         fit: StackFit.expand,
-        children: [
+        children: <Widget>[
           // buildMap(),
           // buildBottomNavigationBar(),
           buildFloatingSearchBar(),
@@ -26,7 +26,8 @@ class _ExampleState extends State<Example> {
   }
 
   Widget buildFloatingSearchBar() {
-    final bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    final bool isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
 
     return FloatingSearchBar(
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
@@ -43,7 +44,7 @@ class _ExampleState extends State<Example> {
       // Specify a custom transition to be used for
       // animating between opened and closed stated.
       transition: CircularFloatingSearchBarTransition(),
-      actions: [
+      actions: <Widget>[
         FloatingSearchBarAction(
           child: CircularButton(
             icon: const Icon(Icons.place),

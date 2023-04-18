@@ -11,7 +11,7 @@ class SizeFadeTransition extends StatefulWidget {
     this.axis = Axis.vertical,
     this.axisAlignment = 0.0,
     this.child,
-  })  : assert(sizeFraction >= 0.0 && sizeFraction <= 1.0);
+  }) : assert(sizeFraction >= 0.0 && sizeFraction <= 1.0);
   final Animation<double> animation;
   final Curve curve;
   final double sizeFraction;
@@ -20,7 +20,7 @@ class SizeFadeTransition extends StatefulWidget {
   final Widget? child;
 
   @override
-  _SizeFadeTransitionState createState() => _SizeFadeTransitionState();
+  State<SizeFadeTransition> createState() => _SizeFadeTransitionState();
 }
 
 class _SizeFadeTransitionState extends State<SizeFadeTransition> {

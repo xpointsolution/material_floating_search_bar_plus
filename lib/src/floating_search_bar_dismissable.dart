@@ -52,7 +52,7 @@ class FloatingSearchBarDismissable extends StatefulWidget {
   final ScrollPhysics? physics;
 
   @override
-  _FloatingSearchBarDismissableState<dynamic> createState() =>
+  State<FloatingSearchBarDismissable> createState() =>
       _FloatingSearchBarDismissableState<dynamic>();
 }
 
