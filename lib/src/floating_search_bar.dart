@@ -5,7 +5,7 @@ import 'package:flutter/material.dart'
     hide ImplicitlyAnimatedWidget, ImplicitlyAnimatedWidgetState;
 import 'package:flutter/services.dart';
 
-import '../material_floating_search_bar.dart';
+import '../material_floating_search_bar_2.dart';
 
 import 'floating_search_bar_dismissable.dart';
 import 'search_bar_style.dart';
