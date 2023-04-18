@@ -1,15 +1,15 @@
 name: material_floating_search_bar_2
 description: A Flutter implementation of an expandable and animated floating search bar, also known as persistent search.
-version: 0.4.0
+version: 0.3.8
 repository: https://github.com/AlwinFassbender/material_floating_search_bar
 
 environment:
-  sdk: '>=2.19.2 <4.0.0'
+  sdk: '>=2.19.2 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  meta: ^1.9.1
+  meta: ^1.8.0
 
 dev_dependencies:
   flutter_test:
