@@ -1,3 +1,8 @@
+## 0.4.0
+
+* **Updated** Dart sdk constraints
+* **Improved** Made package Dart 3 compatible
+
 ## 0.3.8
 
 * **Initial Release** of continued package
