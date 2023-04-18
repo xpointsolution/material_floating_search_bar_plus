@@ -26,7 +26,7 @@ import 'widgets/widgets.dart';
 abstract class FloatingSearchBarTransition {
   late FloatingSearchBarState searchBar;
   BuildContext get context => searchBar.context;
-  Animation get animation => searchBar.animation;
+  CurvedAnimation get animation => searchBar.animation;
   double get t => searchBar.v;
 
   FloatingSearchBarStyle get style => searchBar.style;
@@ -86,13 +86,13 @@ abstract class FloatingSearchBarTransition {
 /// An example of this can be viewed [here](https://github.com/bxqm/material_floating_search_bar/blob/master/assets/expanding_example.gif):
 /// {@endtemplate}
 class ExpandingFloatingSearchBarTransition extends FloatingSearchBarTransition {
-
   /// Creates a [FloatingSearchBarTransition]
   /// {@macro expanding_floating_search_bar_transition}
   ExpandingFloatingSearchBarTransition({
     this.innerElevation = 8,
     this.divider,
   });
+
   /// The elevation of the bar to create a lift on scroll effect
   /// when the body of the [FloatingSearchBar] gets scrolled beneath the
   /// bar.
@@ -150,7 +150,9 @@ class ExpandingFloatingSearchBarTransition extends FloatingSearchBarTransition {
 
   @override
   void onBodyScrolled() {
-    if (lerpInnerElevation() < innerElevation) rebuild();
+    if (lerpInnerElevation() < innerElevation) {
+      rebuild();
+    }
   }
 
   @override
@@ -178,6 +180,7 @@ abstract class OverlayingFloatingSearchBarTransition
     double? spacing,
     this.divider,
   }) : _spacing = spacing;
+
   /// The vertical spacing between the bar of the [FloatingSearchBar] and its body.
   final double? _spacing;
 
@@ -216,7 +219,9 @@ abstract class OverlayingFloatingSearchBarTransition
 
   @override
   BorderRadius lerpBorderRadius() {
-    if (spacing == 0.0) return super.lerpBorderRadius();
+    if (spacing == 0.0) {
+      return super.lerpBorderRadius();
+    }
 
     return BorderRadius.lerp(
       borderRadius,
@@ -230,10 +235,11 @@ abstract class OverlayingFloatingSearchBarTransition
 
   @override
   Widget buildTransition(Widget content) {
-    final EdgeInsets margin = this.margin.resolve(Directionality.of(context)).copyWith(
-          top: 0.0,
-          bottom: 0.0,
-        );
+    final EdgeInsets margin =
+        this.margin.resolve(Directionality.of(context)).copyWith(
+              top: 0.0,
+              bottom: 0.0,
+            );
 
     return Padding(
       padding: margin,
@@ -243,12 +249,16 @@ abstract class OverlayingFloatingSearchBarTransition
 
   @override
   void onBodyScrolled() {
-    if (offset < spacing) rebuild();
+    if (offset < spacing) {
+      rebuild();
+    }
   }
 
   @override
   bool operator ==(dynamic other) {
-    if (identical(this, other)) return true;
+    if (identical(this, other)) {
+      return true;
+    }
 
     return other is OverlayingFloatingSearchBarTransition &&
         other.spacing == spacing &&
@@ -283,7 +293,7 @@ class CircularFloatingSearchBarTransition
         offset: Offset(0, -spacing * (1 - t)),
         child: CircularReveal(
           fraction: t,
-          origin: const Alignment(0.0, 1.0),
+          origin: Alignment.bottomCenter,
           child: content,
         ),
       ),
@@ -299,7 +309,6 @@ class CircularFloatingSearchBarTransition
 /// {@endtemplate}
 class SlideFadeFloatingSearchBarTransition
     extends OverlayingFloatingSearchBarTransition {
-
   /// Creates a [FloatingSearchBarTransition],
   /// {@macro fade_in_floating_search_bar_transition}
   SlideFadeFloatingSearchBarTransition({

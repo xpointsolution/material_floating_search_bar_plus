@@ -11,9 +11,11 @@ export 'size_fade_transition.dart';
 class PeakingTween extends TweenSequence<double> {
   /// Creates a [TweenSequence] that goes from 0 to 1 and back to 0.
   PeakingTween()
-      : super([
-          TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 0.5),
-          TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.5),
+      : super(<TweenSequenceItem<double>>[
+          TweenSequenceItem<double>(
+              tween: Tween<double>(begin: 0.0, end: 1.0), weight: 0.5),
+          TweenSequenceItem<double>(
+              tween: Tween<double>(begin: 1.0, end: 0.0), weight: 0.5),
         ]);
 }
 
@@ -21,8 +23,10 @@ class PeakingTween extends TweenSequence<double> {
 class ValleyingTween extends TweenSequence<double> {
   /// Creates a [TweenSequence] that goes from 1 to 0 and back to 1.
   ValleyingTween()
-      : super([
-          TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.0), weight: 0.5),
-          TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 0.5),
+      : super(<TweenSequenceItem<double>>[
+          TweenSequenceItem<double>(
+              tween: Tween<double>(begin: 1.0, end: 0.0), weight: 0.5),
+          TweenSequenceItem<double>(
+              tween: Tween<double>(begin: 0.0, end: 1.0), weight: 0.5),
         ]);
 }

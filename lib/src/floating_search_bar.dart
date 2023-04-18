@@ -80,6 +80,7 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
   })  : showAfter =
             showAfter ?? (initiallyHidden ? const Duration(days: 1) : null),
         super(key, implicitDuration, implicitCurve);
+
   /// The widget displayed below the `FloatingSearchBar`.
   ///
   /// This is useful, if the `FloatingSearchBar` should react
@@ -437,11 +438,12 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
   );
 
   late Widget body;
-  final ValueNotifier<int> rebuilder = ValueNotifier(0);
+  final ValueNotifier<int> rebuilder = ValueNotifier<int>(0);
 
   late FloatingSearchBarTransition transition =
       widget.transition ?? SlideFadeFloatingSearchBarTransition();
-  late ScrollController _scrollController = widget.scrollController ?? ScrollController();
+  late ScrollController _scrollController =
+      widget.scrollController ?? ScrollController();
 
   dynamic get progress => widget.progress;
 
@@ -456,13 +458,17 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
 
   bool get isOpen => barState?.isOpen ?? false;
   set isOpen(bool value) {
-    if (value != isOpen) barState?.isOpen = value;
+    if (value != isOpen) {
+      barState?.isOpen = value;
+    }
     value ? _controller.forward() : _controller.reverse();
   }
 
   bool get isVisible => _translateController.isDismissed;
   set isVisible(bool value) {
-    if (value == isVisible) return;
+    if (value == isVisible) {
+      return;
+    }
 
     // Only hide the bar when it is not opened.
     if (!isOpen) {
@@ -486,7 +492,7 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
       _translateController.value = 1.0;
 
       if (widget.showAfter! < const Duration(days: 1)) {
-        Future.delayed(widget.showAfter!, show);
+        Future<void>.delayed(widget.showAfter!, show);
       }
     }
 
@@ -610,7 +616,8 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
     );
 
     if (widget.body != null) {
-      final NotificationListener<FloatingSearchBarScrollNotification> body = NotificationListener<FloatingSearchBarScrollNotification>(
+      final NotificationListener<FloatingSearchBarScrollNotification> body =
+          NotificationListener<FloatingSearchBarScrollNotification>(
         onNotification: _onBodyScroll,
         child: widget.body!,
       );
@@ -618,7 +625,7 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
       return Stack(
         clipBehavior: Clip.none,
         fit: StackFit.expand,
-        children: [
+        children: <Widget>[
           body,
           RepaintBoundary(
             child: searchBar,
@@ -633,7 +640,7 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
   NotificationListener<ScrollNotification> _getSearchBarWidget() {
     return NotificationListener<ScrollNotification>(
       onNotification: _onBuilderScroll,
-      child: ValueListenableBuilder(
+      child: ValueListenableBuilder<int>(
         valueListenable: rebuilder,
         builder: (BuildContext context, __, _) => AnimatedBuilder(
           animation: animation,
@@ -691,7 +698,7 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
     );
 
     final SlideTransition bar = SlideTransition(
-      position: Tween(
+      position: Tween<Offset>(
         begin: Offset.zero,
         end: const Offset(0.0, -1.0),
       ).animate(_translateAnimation),
@@ -781,7 +788,7 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
               child: Stack(
                 clipBehavior: Clip.none,
                 alignment: Alignment.center,
-                children: [
+                children: <Widget>[
                   SizedBox(
                     width: transition.lerpInnerWidth(),
                     child: textField,
@@ -824,7 +831,9 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
   }
 
   Widget _buildBackdrop() {
-    if (v == 0.0) return const SizedBox(height: 0);
+    if (v == 0.0) {
+      return const SizedBox(height: 0);
+    }
 
     return FadeTransition(
       opacity: animation,
@@ -929,7 +938,7 @@ class FloatingSearchBarController {
 
   /// Whether the [FloatingSearchBar] is currently
   /// opened/expanded.
-  bool get isOpen => _appBarState?.isOpen == true;
+  bool get isOpen => _appBarState?.isOpen ?? false;
 
   /// Whether the [FloatingSearchBar] is currently
   /// closed/collapsed.
@@ -937,7 +946,7 @@ class FloatingSearchBarController {
 
   /// Whether the [FloatingSearchBar] is currently
   /// not hidden.
-  bool get isVisible => _searchBarState?.isVisible == true;
+  bool get isVisible => _searchBarState?.isVisible ?? false;
 
   /// Whether the [FloatingSearchBar] is currently
   /// not visible.

@@ -10,7 +10,6 @@ import 'widgets/widgets.dart';
 ///
 /// Typically this widget wraps a [CircularButton].
 class FloatingSearchBarAction extends StatelessWidget {
-
   /// Creates a widget to be displayed in a row before or after the
   /// input text of a [FloatingSearchBar].
   ///
@@ -21,7 +20,7 @@ class FloatingSearchBarAction extends StatelessWidget {
     this.builder,
     this.showIfOpened = false,
     this.showIfClosed = true,
-  })  : assert(builder != null || child != null);
+  }) : assert(builder != null || child != null);
 
   /// A hamburger menu that when tapped opens the [Drawer]
   /// of the nearest [Scaffold].
@@ -45,8 +44,9 @@ class FloatingSearchBarAction extends StatelessWidget {
                 ? MaterialLocalizations.of(context).openAppDrawerTooltip
                 : MaterialLocalizations.of(context).backButtonTooltip,
             onPressed: () {
-              final FloatingSearchAppBarState? bar = FloatingSearchAppBar.of(context);
-              if (bar?.isOpen == true) {
+              final FloatingSearchAppBarState? bar =
+                  FloatingSearchAppBar.of(context);
+              if (bar?.isOpen ?? false) {
                 bar?.close();
               } else {
                 Scaffold.of(context).openDrawer();
@@ -131,7 +131,8 @@ class FloatingSearchBarAction extends StatelessWidget {
           size: size,
           icon: Icon(Icons.arrow_back, color: color, size: size),
           onPressed: () {
-            final FloatingSearchAppBarState bar = FloatingSearchAppBar.of(context)!;
+            final FloatingSearchAppBarState bar =
+                FloatingSearchAppBar.of(context)!;
 
             if (bar.isOpen && !bar.isAlwaysOpened) {
               bar.close();
@@ -147,6 +148,7 @@ class FloatingSearchBarAction extends StatelessWidget {
   /// A convenience factory to wrap an [Icon] or an [IconData]
   /// into an action.
   factory FloatingSearchBarAction.icon({
+    /// Must be a Widget or IconData
     required dynamic icon,
     required VoidCallback onTap,
     double size = 24.0,
@@ -158,11 +160,12 @@ class FloatingSearchBarAction extends StatelessWidget {
       showIfOpened: showIfOpened,
       child: CircularButton(
         size: size,
-        icon: icon is IconData ? Icon(icon) : icon,
+        icon: icon is IconData ? Icon(icon) : icon as Widget,
         onPressed: onTap,
       ),
     );
   }
+
   /// The action.
   ///
   /// Typically a [CircularButton].
@@ -229,15 +232,20 @@ class FloatingSearchActionBar extends StatelessWidget {
   }
 
   List<Widget> _mapActions() {
-    final Animation<double> animation = ValleyingTween().animate(this.animation);
+    final Animation<double> animation =
+        ValleyingTween().animate(this.animation);
     final bool isOpen = this.animation.value >= 0.5;
 
     int openCount = 0;
     int closedCount = 0;
     for (final Widget action in actions) {
       if (action is FloatingSearchBarAction) {
-        if (action.showIfOpened) openCount++;
-        if (action.showIfClosed) closedCount++;
+        if (action.showIfOpened) {
+          openCount++;
+        }
+        if (action.showIfClosed) {
+          closedCount++;
+        }
       }
     }
 
@@ -253,10 +261,13 @@ class FloatingSearchActionBar extends StatelessWidget {
 
     return currentActions.map((Widget action) {
       if (action is FloatingSearchBarAction) {
-        if (action.isAlwaysShown) return action;
+        if (action.isAlwaysShown) {
+          return action;
+        }
 
         final int index = currentActions.reversed.toList().indexOf(action);
-        final bool shouldScale = index <= ((isOpen ? closedCount : openCount) - 1);
+        final bool shouldScale =
+            index <= ((isOpen ? closedCount : openCount) - 1);
         if (shouldScale) {
           return ScaleTransition(
             scale: animation,

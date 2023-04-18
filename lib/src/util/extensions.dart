@@ -13,7 +13,7 @@ extension NumExtension on num {
 extension GlobalKeyExtension on GlobalKey {
   RenderBox? get renderBox => currentContext?.renderBox;
 
-  Size? get size => renderBox?.hasSize == true ? renderBox?.size : Size.zero;
+  Size? get size => renderBox?.hasSize ?? false ? renderBox?.size : Size.zero;
   double? get height => size?.height;
   double? get width => size?.width;
 }
@@ -21,7 +21,7 @@ extension GlobalKeyExtension on GlobalKey {
 extension BuildContextUiExtension on BuildContext {
   RenderBox? get renderBox => findRenderObject() as RenderBox?;
 
-  Size? get size => renderBox?.hasSize == true ? renderBox?.size : Size.zero;
+  Size? get size => renderBox?.hasSize ?? false ? renderBox?.size : Size.zero;
   double? get height => size?.height;
   double? get width => size?.width;
 }

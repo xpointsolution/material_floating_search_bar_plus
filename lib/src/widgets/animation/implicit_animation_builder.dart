@@ -21,7 +21,7 @@ class ImplicitAnimationBuilder<T> extends ImplicitlyAnimatedWidget {
   final Widget? child;
 
   @override
-  _ImplicitAnimationBuilderState createState() =>
+  _ImplicitAnimationBuilderState<T> createState() =>
       _ImplicitAnimationBuilderState<T>();
 }
 

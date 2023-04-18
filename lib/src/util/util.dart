@@ -10,8 +10,12 @@ export 'handler.dart';
 
 double interval(double begin, double end, double t,
     {Curve curve = Curves.linear}) {
-  if (t < begin) return 0.0;
-  if (t > end) return 1.0;
+  if (t < begin) {
+    return 0.0;
+  }
+  if (t > end) {
+    return 1.0;
+  }
 
   final double v = ((t - begin) / (end - begin)).clamp(0.0, 1.0);
   return curve.transform(v);

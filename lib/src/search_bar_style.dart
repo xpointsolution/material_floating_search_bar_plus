@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-// ignore_for_file: public_member_api_docs
-
 class FloatingSearchBarStyle {
   const FloatingSearchBarStyle({
     required this.backgroundColor,
@@ -63,24 +61,26 @@ class FloatingSearchBarStyle {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
 
-    return o is FloatingSearchBarStyle &&
-        o.backgroundColor == backgroundColor &&
-        o.shadowColor == shadowColor &&
-        o.padding == padding &&
-        o.insets == insets &&
-        o.height == height &&
-        o.elevation == elevation &&
-        o.backdropColor == backdropColor &&
-        o.border == border &&
-        o.borderRadius == borderRadius &&
-        o.margins == margins &&
-        o.maxWidth == maxWidth &&
-        o.openMaxWidth == openMaxWidth &&
-        o.axisAlignment == axisAlignment &&
-        o.openAxisAlignment == openAxisAlignment;
+    return other is FloatingSearchBarStyle &&
+        other.backgroundColor == backgroundColor &&
+        other.shadowColor == shadowColor &&
+        other.padding == padding &&
+        other.insets == insets &&
+        other.height == height &&
+        other.elevation == elevation &&
+        other.backdropColor == backdropColor &&
+        other.border == border &&
+        other.borderRadius == borderRadius &&
+        other.margins == margins &&
+        other.maxWidth == maxWidth &&
+        other.openMaxWidth == openMaxWidth &&
+        other.axisAlignment == axisAlignment &&
+        other.openAxisAlignment == openAxisAlignment;
   }
 
   @override
@@ -154,22 +154,24 @@ class FloatingSearchAppBarStyle {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
 
-    return o is FloatingSearchAppBarStyle &&
-        o.accentColor == accentColor &&
-        o.backgroundColor == backgroundColor &&
-        o.shadowColor == shadowColor &&
-        o.iconColor == iconColor &&
-        o.colorOnScroll == colorOnScroll &&
-        o.padding == padding &&
-        o.insets == insets &&
-        o.height == height &&
-        o.elevation == elevation &&
-        o.liftOnScrollElevation == liftOnScrollElevation &&
-        o.hintStyle == hintStyle &&
-        o.queryStyle == queryStyle;
+    return other is FloatingSearchAppBarStyle &&
+        other.accentColor == accentColor &&
+        other.backgroundColor == backgroundColor &&
+        other.shadowColor == shadowColor &&
+        other.iconColor == iconColor &&
+        other.colorOnScroll == colorOnScroll &&
+        other.padding == padding &&
+        other.insets == insets &&
+        other.height == height &&
+        other.elevation == elevation &&
+        other.liftOnScrollElevation == liftOnScrollElevation &&
+        other.hintStyle == hintStyle &&
+        other.queryStyle == queryStyle;
   }
 
   @override

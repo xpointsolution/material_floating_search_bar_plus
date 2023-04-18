@@ -197,7 +197,7 @@ class FloatingSearchAppBar extends ImplicitlyAnimatedWidget {
 
 class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
     FloatingSearchAppBarStyle, FloatingSearchAppBar> {
-  final ValueNotifier<String> queryNotifer = ValueNotifier('');
+  final ValueNotifier<String> queryNotifer = ValueNotifier<String>('');
   final Handler _handler = Handler();
 
   late final AnimationController controller =
@@ -208,7 +208,9 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
           _setInsets();
 
           if (status == AnimationStatus.dismissed) {
-            if (widget.clearQueryOnClose) clear();
+            if (widget.clearQueryOnClose) {
+              clear();
+            }
           }
         });
 
@@ -261,7 +263,7 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
   bool get hasActions => actions.isNotEmpty;
   List<Widget> get actions {
     final List<Widget> actions =
-        widget.actions ?? [FloatingSearchBarAction.searchToClear()];
+        widget.actions ?? <Widget>[FloatingSearchBarAction.searchToClear()];
     final bool showHamburger = widget.automaticallyImplyDrawerHamburger &&
         Scaffold.of(context).hasEndDrawer;
     return showHamburger
@@ -378,8 +380,8 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
   late EdgeInsets insets;
   void _setInsets() {
     bool hasActions(List<Widget> actions) {
-      final List active = List.from(actions)
-        ..retainWhere((action) {
+      final List<Widget> active = List<Widget>.from(actions)
+        ..retainWhere((Widget action) {
           if (action is FloatingSearchBarAction) {
             return isOpen ? action.showIfOpened : action.showIfClosed;
           } else {
@@ -434,7 +436,9 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
               statusBarIconBrightness: Brightness.dark),
       child: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification notification) {
-          if (notification.metrics.axis != Axis.vertical) return false;
+          if (notification.metrics.axis != Axis.vertical) {
+            return false;
+          }
 
           final double pixels = notification.metrics.pixels;
 
@@ -460,7 +464,7 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
         },
         child: Stack(
           clipBehavior: Clip.none,
-          children: [
+          children: <Widget>[
             Padding(
               padding: EdgeInsets.only(top: height),
               child: widget.body,
@@ -517,7 +521,7 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.bottomCenter,
-      children: [
+      children: <Widget>[
         bar,
         _FloatingSearchProgressBar(
           progress: widget.progress,
@@ -532,7 +536,7 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
         Theme.of(context).iconTheme.copyWith(color: style.iconColor);
 
     return Row(
-      children: [
+      children: <Widget>[
         FloatingSearchActionBar(
           animation: transitionAnimation,
           actions: leadingActions,
@@ -568,7 +572,7 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
           height: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
+              colors: <Color>[
                 backgroundColor.withOpacity(0.0),
                 backgroundColor.withOpacity(1.0),
               ],
@@ -763,8 +767,8 @@ class _FloatingSearchProgressBarState extends State<_FloatingSearchProgressBar>
   Widget build(BuildContext context) {
     const double height = 2.75;
 
-    final progressValue =
-        progress is num ? progress.toDouble().clamp(0.0, 1.0) : null;
+    final double? progressValue =
+        progress is num ? (progress as num).toDouble().clamp(0.0, 1.0) : null;
 
     if (showProgressBar) {
       return Opacity(
@@ -775,7 +779,7 @@ class _FloatingSearchProgressBarState extends State<_FloatingSearchProgressBar>
             value: progressValue,
             semanticsValue: progressValue?.toStringAsFixed(2),
             backgroundColor: Colors.transparent,
-            valueColor: AlwaysStoppedAnimation(widget.color),
+            valueColor: AlwaysStoppedAnimation<Color>(widget.color),
           ),
         ),
       );

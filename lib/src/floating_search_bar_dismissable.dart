@@ -17,7 +17,6 @@ import 'util/util.dart';
 /// events before they get to the [Scrollable] and then decide based on the
 /// height of the child, whether a tap was below the content.
 class FloatingSearchBarDismissable extends StatefulWidget {
-
   const FloatingSearchBarDismissable({
     super.key,
     required this.child,
@@ -53,8 +52,8 @@ class FloatingSearchBarDismissable extends StatefulWidget {
   final ScrollPhysics? physics;
 
   @override
-  _FloatingSearchBarDismissableState createState() =>
-      _FloatingSearchBarDismissableState();
+  _FloatingSearchBarDismissableState<dynamic> createState() =>
+      _FloatingSearchBarDismissableState<dynamic>();
 }
 
 class _FloatingSearchBarDismissableState<E>
@@ -82,7 +81,8 @@ class _FloatingSearchBarDismissableState<E>
     return GestureDetector(
       onTapDown: (TapDownDetails details) => tapDy = details.localPosition.dy,
       onPanDown: (DragDownDetails details) => tapDy = details.localPosition.dy,
-      onPanUpdate: (DragUpdateDetails details) => tapDy = details.localPosition.dy,
+      onPanUpdate: (DragUpdateDetails details) =>
+          tapDy = details.localPosition.dy,
       onTap: () {
         final double offset = max(scrollOffset - padding.top, 0.0);
 
