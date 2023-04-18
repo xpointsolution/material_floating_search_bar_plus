@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_equals_and_hash_code_on_mutable_classes
+
 import 'dart:math' as math;
 import 'dart:ui';
 
@@ -7,8 +9,6 @@ import 'floating_search_bar.dart';
 import 'search_bar_style.dart';
 import 'util/util.dart';
 import 'widgets/widgets.dart';
-
-// ignore_for_file: public_member_api_docs
 
 /// Base class for all open/close transitions
 /// for a [FloatingSearchBar].

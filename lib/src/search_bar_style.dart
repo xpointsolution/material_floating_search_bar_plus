@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_equals_and_hash_code_on_mutable_classes
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -58,47 +60,6 @@ class FloatingSearchBarStyle {
   @override
   String toString() {
     return 'FloatingSearchBarStyle(backgroundColor: $backgroundColor, shadowColor: $shadowColor, padding: $padding, insets: $insets, height: $height, elevation: $elevation, backdropColor: $backdropColor, border: $border, borderRadius: $borderRadius, margins: $margins, maxWidth: $maxWidth, openMaxWidth: $openMaxWidth, axisAlignment: $axisAlignment, openAxisAlignment: $openAxisAlignment)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-
-    return other is FloatingSearchBarStyle &&
-        other.backgroundColor == backgroundColor &&
-        other.shadowColor == shadowColor &&
-        other.padding == padding &&
-        other.insets == insets &&
-        other.height == height &&
-        other.elevation == elevation &&
-        other.backdropColor == backdropColor &&
-        other.border == border &&
-        other.borderRadius == borderRadius &&
-        other.margins == margins &&
-        other.maxWidth == maxWidth &&
-        other.openMaxWidth == openMaxWidth &&
-        other.axisAlignment == axisAlignment &&
-        other.openAxisAlignment == openAxisAlignment;
-  }
-
-  @override
-  int get hashCode {
-    return backgroundColor.hashCode ^
-        shadowColor.hashCode ^
-        padding.hashCode ^
-        insets.hashCode ^
-        height.hashCode ^
-        elevation.hashCode ^
-        backdropColor.hashCode ^
-        border.hashCode ^
-        borderRadius.hashCode ^
-        margins.hashCode ^
-        maxWidth.hashCode ^
-        openMaxWidth.hashCode ^
-        axisAlignment.hashCode ^
-        openAxisAlignment.hashCode;
   }
 }
 
