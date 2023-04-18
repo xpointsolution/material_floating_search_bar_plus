@@ -15,8 +15,10 @@ class SearchModel extends ChangeNotifier {
   String _query = '';
   String get query => _query;
 
-  void onQueryChanged(String query) async {
-    if (query == _query) return;
+  Future<void> onQueryChanged(String query) async {
+    if (query == _query) {
+      return;
+    }
 
     _query = query;
     _isLoading = true;
@@ -25,12 +27,18 @@ class SearchModel extends ChangeNotifier {
     if (query.isEmpty) {
       _suggestions = history;
     } else {
-      final response =
+      final http.Response response =
           await http.get(Uri.parse('https://photon.komoot.io/api/?q=$query'));
-      final body = json.decode(utf8.decode(response.bodyBytes));
-      final features = body['features'] as List;
+      final dynamic body = json.decode(utf8.decode(response.bodyBytes));
 
-      _suggestions = features.map((e) => Place.fromJson(e)).toSet().toList();
+      // TODO(AlwinFassbender): fix typing
+      final List<dynamic> features = body['features'] as List<dynamic>;
+
+      _suggestions = features
+          .map((dynamic e) =>
+              Place.fromJson(e as Map<String, Map<String, String>>))
+          .toSet()
+          .toList();
     }
 
     _isLoading = false;
@@ -43,7 +51,7 @@ class SearchModel extends ChangeNotifier {
   }
 }
 
-const List<Place> history = [
+const List<Place> history = <Place>[
   Place(
     name: 'San Fracisco',
     country: 'United States of America',

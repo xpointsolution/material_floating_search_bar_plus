@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 class Example extends StatefulWidget {
-  const Example({Key? key}) : super(key: key);
+  const Example({super.key});
 
   @override
   _ExampleState createState() => _ExampleState();
@@ -26,10 +26,9 @@ class _ExampleState extends State<Example> {
   }
 
   Widget buildFloatingSearchBar() {
-    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    final bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
 
     return FloatingSearchBar(
-      hint: 'Search...',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
       transitionDuration: const Duration(milliseconds: 800),
       transitionCurve: Curves.easeInOut,
@@ -38,7 +37,7 @@ class _ExampleState extends State<Example> {
       openAxisAlignment: 0.0,
       width: isPortrait ? 600 : 500,
       debounceDelay: const Duration(milliseconds: 500),
-      onQueryChanged: (query) {
+      onQueryChanged: (String query) {
         // Call your model, bloc, controller here.
       },
       // Specify a custom transition to be used for
@@ -46,7 +45,6 @@ class _ExampleState extends State<Example> {
       transition: CircularFloatingSearchBarTransition(),
       actions: [
         FloatingSearchBarAction(
-          showIfOpened: false,
           child: CircularButton(
             icon: const Icon(Icons.place),
             onPressed: () {},
@@ -56,7 +54,7 @@ class _ExampleState extends State<Example> {
           showIfClosed: false,
         ),
       ],
-      builder: (context, transition) {
+      builder: (BuildContext context, Animation<double> transition) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Material(
@@ -64,7 +62,7 @@ class _ExampleState extends State<Example> {
             elevation: 4.0,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: Colors.accents.map((color) {
+              children: Colors.accents.map((MaterialAccentColor color) {
                 return Container(height: 112, color: color);
               }).toList(),
             ),
@@ -93,6 +91,8 @@ class _ExampleState extends State<Example> {
 } */
 
 class MyAwesomePage extends StatelessWidget {
+  const MyAwesomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     /// Wrap you Scrollable in a FloatingSearchBarScrollNotifier
