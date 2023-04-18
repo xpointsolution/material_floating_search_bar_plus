@@ -7,13 +7,14 @@ class Place {
     required this.country,
   });
 
-  factory Place.fromJson(Map<String, Map<String, String>> map) {
-    final Map<String, String> props = map['properties']!;
+  factory Place.fromJson(Map<String, dynamic> map) {
+    final Map<String, dynamic> props =
+        map['properties']! as Map<String, dynamic>;
 
     return Place(
-      name: props['name'] ?? '',
-      state: props['state'] ?? '',
-      country: props['country'] ?? '',
+      name: props['name'] as String? ?? '',
+      state: props['state'] as String? ?? '',
+      country: props['country'] as String? ?? '',
     );
   }
   final String name;

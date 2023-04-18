@@ -31,12 +31,11 @@ class SearchModel extends ChangeNotifier {
           await http.get(Uri.parse('https://photon.komoot.io/api/?q=$query'));
       final dynamic body = json.decode(utf8.decode(response.bodyBytes));
 
-      // TODO(AlwinFassbender): fix typing
+      // ignore: avoid_dynamic_calls
       final List<dynamic> features = body['features'] as List<dynamic>;
 
       _suggestions = features
-          .map((dynamic e) =>
-              Place.fromJson(e as Map<String, Map<String, String>>))
+          .map((dynamic e) => Place.fromJson(e as Map<String, dynamic>))
           .toSet()
           .toList();
     }
