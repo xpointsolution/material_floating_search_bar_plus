@@ -2,9 +2,9 @@ import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:material_floating_search_bar/src/search_bar_style.dart';
 
 import 'floating_search_bar.dart';
+import 'search_bar_style.dart';
 import 'util/util.dart';
 import 'widgets/widgets.dart';
 
@@ -86,13 +86,6 @@ abstract class FloatingSearchBarTransition {
 /// An example of this can be viewed [here](https://github.com/bxqm/material_floating_search_bar/blob/master/assets/expanding_example.gif):
 /// {@endtemplate}
 class ExpandingFloatingSearchBarTransition extends FloatingSearchBarTransition {
-  /// The elevation of the bar to create a lift on scroll effect
-  /// when the body of the [FloatingSearchBar] gets scrolled beneath the
-  /// bar.
-  final double innerElevation;
-
-  /// A divider to be shown between the bar and the body of the [FloatingSearchBar].
-  final Widget? divider;
 
   /// Creates a [FloatingSearchBarTransition]
   /// {@macro expanding_floating_search_bar_transition}
@@ -100,6 +93,13 @@ class ExpandingFloatingSearchBarTransition extends FloatingSearchBarTransition {
     this.innerElevation = 8,
     this.divider,
   });
+  /// The elevation of the bar to create a lift on scroll effect
+  /// when the body of the [FloatingSearchBar] gets scrolled beneath the
+  /// bar.
+  final double innerElevation;
+
+  /// A divider to be shown between the bar and the body of the [FloatingSearchBar].
+  final Widget? divider;
 
   @override
   bool get isBodyInsideSearchBar => true;
@@ -174,6 +174,10 @@ class ExpandingFloatingSearchBarTransition extends FloatingSearchBarTransition {
 /// bar.
 abstract class OverlayingFloatingSearchBarTransition
     extends FloatingSearchBarTransition {
+  OverlayingFloatingSearchBarTransition({
+    double? spacing,
+    this.divider,
+  }) : _spacing = spacing;
   /// The vertical spacing between the bar of the [FloatingSearchBar] and its body.
   final double? _spacing;
 
@@ -182,10 +186,6 @@ abstract class OverlayingFloatingSearchBarTransition
   /// Typically this gets revealed when the body has scrolled the amount specifieds
   /// by [spacing].
   final Widget? divider;
-  OverlayingFloatingSearchBarTransition({
-    double? spacing,
-    this.divider,
-  }) : _spacing = spacing;
 
   double get spacing => _spacing ?? searchBar.widget.scrollPadding.top;
 
@@ -223,8 +223,6 @@ abstract class OverlayingFloatingSearchBarTransition
       BorderRadius.only(
         topLeft: borderRadius.topLeft,
         topRight: borderRadius.topRight,
-        bottomLeft: Radius.zero,
-        bottomRight: Radius.zero,
       ),
       scrollT,
     )!;
@@ -232,7 +230,7 @@ abstract class OverlayingFloatingSearchBarTransition
 
   @override
   Widget buildTransition(Widget content) {
-    final margin = this.margin.resolve(Directionality.of(context)).copyWith(
+    final EdgeInsets margin = this.margin.resolve(Directionality.of(context)).copyWith(
           top: 0.0,
           bottom: 0.0,
         );
@@ -272,16 +270,13 @@ class CircularFloatingSearchBarTransition
   /// Creates a [FloatingSearchBarTransition],
   /// {@macro circular_floating_search_bar_transition}
   CircularFloatingSearchBarTransition({
-    double? spacing,
-    Widget? divider,
-  }) : super(
-          spacing: spacing,
-          divider: divider,
-        );
+    super.spacing,
+    super.divider,
+  });
 
   @override
   Widget buildTransition(Widget content) {
-    final spacing = math.max(this.spacing - offset, 0.0);
+    final double spacing = math.max(this.spacing - offset, 0.0);
 
     return super.buildTransition(
       Transform.translate(
@@ -304,22 +299,19 @@ class CircularFloatingSearchBarTransition
 /// {@endtemplate}
 class SlideFadeFloatingSearchBarTransition
     extends OverlayingFloatingSearchBarTransition {
-  final double translation;
 
   /// Creates a [FloatingSearchBarTransition],
   /// {@macro fade_in_floating_search_bar_transition}
   SlideFadeFloatingSearchBarTransition({
-    double? spacing,
-    Widget? divider,
+    super.spacing,
+    super.divider,
     this.translation = 32.0,
-  }) : super(
-          spacing: spacing,
-          divider: divider,
-        );
+  });
+  final double translation;
 
   @override
   Widget buildTransition(Widget content) {
-    final offset = lerpDouble(
+    final double offset = lerpDouble(
       translation,
       0.0,
       Curves.easeIn.transform(t),

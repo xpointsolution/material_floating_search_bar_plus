@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 /// when the user scrolls down and shown again when the user scrolls
 /// up.
 class FloatingSearchBarScrollNotifier extends StatelessWidget {
-  /// The vertically scrollable child.
-  final Widget child;
 
   /// Creates a [FloatingSearchBarScrollNotifier].
   ///
@@ -18,14 +16,16 @@ class FloatingSearchBarScrollNotifier extends StatelessWidget {
   /// when the user scrolls down and shown again when the user scrolls
   /// up.
   const FloatingSearchBarScrollNotifier({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
+  /// The vertically scrollable child.
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
-      onNotification: (notification) {
+      onNotification: (ScrollNotification notification) {
         ScrollMetrics metrics = notification.metrics;
         // Dispatch the notifcation only for vertical
         // scrollables.

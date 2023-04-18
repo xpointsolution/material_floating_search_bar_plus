@@ -6,26 +6,25 @@ import 'package:flutter/material.dart';
 // ignore_for_file: public_member_api_docs
 
 class CircularReveal extends StatelessWidget {
-  final double fraction;
-  final Alignment origin;
-  final Offset offset;
-  final Widget? child;
-  final double? minRadius;
-  final double? maxRadius;
   const CircularReveal({
-    Key? key,
+    super.key,
     this.fraction = 1.0,
     this.origin = Alignment.center,
     this.offset = Offset.zero,
     this.child,
     this.minRadius,
     this.maxRadius,
-  }) : super(key: key);
+  });
+  final double fraction;
+  final Alignment origin;
+  final Offset offset;
+  final Widget? child;
+  final double? minRadius;
+  final double? maxRadius;
 
   @override
   Widget build(BuildContext context) {
     return ClipPath(
-      clipBehavior: Clip.antiAlias,
       clipper: _CircularRevealClipper(
         origin: origin,
         offset: offset,
@@ -39,11 +38,6 @@ class CircularReveal extends StatelessWidget {
 }
 
 class _CircularRevealClipper extends CustomClipper<Path> {
-  final double fraction;
-  final Alignment origin;
-  final Offset offset;
-  final double? minRadius;
-  final double? maxRadius;
   const _CircularRevealClipper({
     this.fraction = 1.0,
     this.origin = Alignment.center,
@@ -51,17 +45,22 @@ class _CircularRevealClipper extends CustomClipper<Path> {
     this.minRadius,
     this.maxRadius,
   });
+  final double fraction;
+  final Alignment origin;
+  final Offset offset;
+  final double? minRadius;
+  final double? maxRadius;
 
   @override
   Path getClip(Size size) {
-    final x = (origin.x + 1.0) / 2.0;
-    final y = 1.0 - ((origin.y + 1.0) / 2.0);
-    final center =
+    final double x = (origin.x + 1.0) / 2.0;
+    final double y = 1.0 - ((origin.y + 1.0) / 2.0);
+    final Offset center =
         Offset((size.width * x) + offset.dx, (size.height * y) + offset.dy);
-    final minRadius = this.minRadius ?? 0.0;
-    final maxRadius = this.maxRadius ?? calcMaxRadius(size, center);
+    final double minRadius = this.minRadius ?? 0.0;
+    final double maxRadius = this.maxRadius ?? calcMaxRadius(size, center);
 
-    final radius = lerpDouble(minRadius, maxRadius, fraction) ?? 0;
+    final double radius = lerpDouble(minRadius, maxRadius, fraction) ?? 0;
 
     return Path()
       ..addOval(
@@ -73,8 +72,8 @@ class _CircularRevealClipper extends CustomClipper<Path> {
   }
 
   double calcMaxRadius(Size size, Offset center) {
-    final w = max(center.dx, size.width - center.dx);
-    final h = max(center.dy, size.height - center.dy);
+    final double w = max(center.dx, size.width - center.dx);
+    final double h = max(center.dy, size.height - center.dy);
     return sqrt((w * w) + (h * h));
   }
 

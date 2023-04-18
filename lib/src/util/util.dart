@@ -13,16 +13,16 @@ double interval(double begin, double end, double t,
   if (t < begin) return 0.0;
   if (t > end) return 1.0;
 
-  final v = ((t - begin) / (end - begin)).clamp(0.0, 1.0);
+  final double v = ((t - begin) / (end - begin)).clamp(0.0, 1.0);
   return curve.transform(v);
 }
 
 void postFrame(VoidCallback callback) {
-  WidgetsBinding.instance?.addPostFrameCallback((_) => callback());
+  WidgetsBinding.instance.addPostFrameCallback((_) => callback());
 }
 
 bool get isAvailableSwipeBack {
-  var macLand = false;
+  bool macLand = false;
   if (!kIsWeb) {
     macLand = Platform.isIOS | Platform.isMacOS;
   }

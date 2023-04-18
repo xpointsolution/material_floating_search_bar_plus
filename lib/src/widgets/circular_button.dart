@@ -3,6 +3,17 @@ import 'package:flutter/material.dart';
 /// An easier to use [IconButton] for [FloatingSearchBar]
 /// actions.
 class CircularButton extends StatelessWidget {
+
+  /// Creates an easier to use [IconButton] for
+  /// [FloatingSearchBar] actions.
+  const CircularButton({
+    super.key,
+    required this.icon,
+    required this.onPressed,
+    this.size = 24.0,
+    this.padding = const EdgeInsets.all(8),
+    this.tooltip,
+  });
   // ignore: public_member_api_docs
   final Widget icon;
 
@@ -22,17 +33,6 @@ class CircularButton extends StatelessWidget {
 
   // ignore: public_member_api_docs
   final String? tooltip;
-
-  /// Creates an easier to use [IconButton] for
-  /// [FloatingSearchBar] actions.
-  const CircularButton({
-    Key? key,
-    required this.icon,
-    required this.onPressed,
-    this.size = 24.0,
-    this.padding = const EdgeInsets.all(8),
-    this.tooltip,
-  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

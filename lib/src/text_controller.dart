@@ -10,7 +10,7 @@ class TextController extends TextEditingController {
   TextController();
 
   /// The [FocusNode] of this [TextController].
-  final node = FocusNode();
+  final FocusNode node = FocusNode();
 
   @override
   set text(String newText) {
@@ -19,7 +19,7 @@ class TextController extends TextEditingController {
     // When the current selection is at the end of the
     // query, adjust the selection to the new end of the
     // query.
-    final isSelectionAtTextEnd = text.length == offset;
+    final bool isSelectionAtTextEnd = text.length == offset;
     if (isSelectionAtTextEnd) {
       offset = newText.length;
     }

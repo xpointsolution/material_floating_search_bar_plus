@@ -5,20 +5,6 @@ import 'package:flutter/material.dart';
 // ignore_for_file: public_member_api_docs
 
 class FloatingSearchBarStyle {
-  final Color backgroundColor;
-  final Color shadowColor;
-  final Color backdropColor;
-  final EdgeInsets padding;
-  final EdgeInsets insets;
-  final EdgeInsets margins;
-  final double height;
-  final double elevation;
-  final BorderSide border;
-  final BorderRadius borderRadius;
-  final double? maxWidth;
-  final double? openMaxWidth;
-  final double axisAlignment;
-  final double openAxisAlignment;
   const FloatingSearchBarStyle({
     required this.backgroundColor,
     required this.shadowColor,
@@ -35,6 +21,20 @@ class FloatingSearchBarStyle {
     required this.axisAlignment,
     required this.openAxisAlignment,
   });
+  final Color backgroundColor;
+  final Color shadowColor;
+  final Color backdropColor;
+  final EdgeInsets padding;
+  final EdgeInsets insets;
+  final EdgeInsets margins;
+  final double height;
+  final double elevation;
+  final BorderSide border;
+  final BorderRadius borderRadius;
+  final double? maxWidth;
+  final double? openMaxWidth;
+  final double axisAlignment;
+  final double openAxisAlignment;
 
   FloatingSearchBarStyle scaleTo(FloatingSearchBarStyle b, double t) {
     return FloatingSearchBarStyle(
@@ -103,18 +103,6 @@ class FloatingSearchBarStyle {
 }
 
 class FloatingSearchAppBarStyle {
-  final Color accentColor;
-  final Color backgroundColor;
-  final Color shadowColor;
-  final Color iconColor;
-  final Color? colorOnScroll;
-  final EdgeInsets padding;
-  final EdgeInsets insets;
-  final double height;
-  final double elevation;
-  final double liftOnScrollElevation;
-  final TextStyle? hintStyle;
-  final TextStyle? queryStyle;
   const FloatingSearchAppBarStyle({
     required this.accentColor,
     required this.backgroundColor,
@@ -129,6 +117,18 @@ class FloatingSearchAppBarStyle {
     required this.hintStyle,
     required this.queryStyle,
   });
+  final Color accentColor;
+  final Color backgroundColor;
+  final Color shadowColor;
+  final Color iconColor;
+  final Color? colorOnScroll;
+  final EdgeInsets padding;
+  final EdgeInsets insets;
+  final double height;
+  final double elevation;
+  final double liftOnScrollElevation;
+  final TextStyle? hintStyle;
+  final TextStyle? queryStyle;
 
   FloatingSearchAppBarStyle scaleTo(FloatingSearchAppBarStyle b, double t) {
     return FloatingSearchAppBarStyle(

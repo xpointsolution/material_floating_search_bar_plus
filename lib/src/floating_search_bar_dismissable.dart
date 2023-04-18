@@ -17,6 +17,14 @@ import 'util/util.dart';
 /// events before they get to the [Scrollable] and then decide based on the
 /// height of the child, whether a tap was below the content.
 class FloatingSearchBarDismissable extends StatefulWidget {
+
+  const FloatingSearchBarDismissable({
+    super.key,
+    required this.child,
+    this.padding,
+    this.controller,
+    this.physics,
+  });
   final Widget child;
 
   /// The amount of space by which to inset the child.
@@ -44,14 +52,6 @@ class FloatingSearchBarDismissable extends StatefulWidget {
   /// Defaults to matching platform conventions.
   final ScrollPhysics? physics;
 
-  const FloatingSearchBarDismissable({
-    Key? key,
-    required this.child,
-    this.padding,
-    this.controller,
-    this.physics,
-  }) : super(key: key);
-
   @override
   _FloatingSearchBarDismissableState createState() =>
       _FloatingSearchBarDismissableState();
@@ -59,7 +59,7 @@ class FloatingSearchBarDismissable extends StatefulWidget {
 
 class _FloatingSearchBarDismissableState<E>
     extends State<FloatingSearchBarDismissable> {
-  final childKey = GlobalKey();
+  final GlobalKey<State<StatefulWidget>> childKey = GlobalKey();
 
   double childHeight = 0.0;
   double tapDy = 0.0;
@@ -76,15 +76,15 @@ class _FloatingSearchBarDismissableState<E>
   Widget build(BuildContext context) {
     _measure();
 
-    final padding =
+    final EdgeInsets padding =
         widget.padding?.resolve(Directionality.of(context)) ?? EdgeInsets.zero;
 
     return GestureDetector(
-      onTapDown: (details) => tapDy = details.localPosition.dy,
-      onPanDown: (details) => tapDy = details.localPosition.dy,
-      onPanUpdate: (details) => tapDy = details.localPosition.dy,
+      onTapDown: (TapDownDetails details) => tapDy = details.localPosition.dy,
+      onPanDown: (DragDownDetails details) => tapDy = details.localPosition.dy,
+      onPanUpdate: (DragUpdateDetails details) => tapDy = details.localPosition.dy,
       onTap: () {
-        final offset = max(scrollOffset - padding.top, 0.0);
+        final double offset = max(scrollOffset - padding.top, 0.0);
 
         void close() => FloatingSearchBar.of(context)!.close();
 
@@ -95,8 +95,8 @@ class _FloatingSearchBarDismissableState<E>
         }
       },
       child: NotificationListener<ScrollNotification>(
-        onNotification: (notification) {
-          final metrics = notification.metrics;
+        onNotification: (ScrollNotification notification) {
+          final ScrollMetrics metrics = notification.metrics;
 
           if (metrics.axis == Axis.vertical) {
             scrollOffset = metrics.pixels;

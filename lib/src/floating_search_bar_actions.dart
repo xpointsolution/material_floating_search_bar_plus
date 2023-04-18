@@ -10,48 +10,18 @@ import 'widgets/widgets.dart';
 ///
 /// Typically this widget wraps a [CircularButton].
 class FloatingSearchBarAction extends StatelessWidget {
-  /// The action.
-  ///
-  /// Typically a [CircularButton].
-  final Widget? child;
-
-  /// A builder that can be used when the action needs
-  /// to react to changes in its [FloatingSearchBar].
-  ///
-  /// View [FloatingSearchBarAction.searchToClear] for an example.
-  final Widget Function(BuildContext context, Animation<double> animation)?
-      builder;
-
-  /// Whether this action should be shown when the [FloatingSearchBar]
-  /// is opened.
-  ///
-  /// If false, this action will be animated out when the
-  /// bar [FloatingSearchBar] closed.
-  final bool showIfOpened;
-
-  /// Whether this action should be shown when the [FloatingSearchBar]
-  /// is closed.
-  ///
-  /// If false, this action will be animated out when the
-  /// bar [FloatingSearchBar] closed.
-  final bool showIfClosed;
 
   /// Creates a widget to be displayed in a row before or after the
   /// input text of a [FloatingSearchBar].
   ///
   /// Typically this widget wraps a [CircularButton].
   const FloatingSearchBarAction({
-    Key? key,
+    super.key,
     this.child,
     this.builder,
     this.showIfOpened = false,
     this.showIfClosed = true,
-  })  : assert(builder != null || child != null),
-        super(key: key);
-
-  /// Whether this [FloatingSearchBarAction] is shown when opened
-  /// and when closed.
-  bool get isAlwaysShown => showIfOpened && showIfClosed;
+  })  : assert(builder != null || child != null);
 
   /// A hamburger menu that when tapped opens the [Drawer]
   /// of the nearest [Scaffold].
@@ -65,10 +35,25 @@ class FloatingSearchBarAction extends StatelessWidget {
   }) {
     return FloatingSearchBarAction(
       showIfOpened: true,
-      builder: (context, animation) {
-        final isLTR = Directionality.of(context) == TextDirection.ltr;
+      builder: (BuildContext context, Animation<double> animation) {
+        final bool isLTR = Directionality.of(context) == TextDirection.ltr;
 
         return AnimatedBuilder(
+          animation: animation,
+          builder: (BuildContext context, Widget? icon) => CircularButton(
+            tooltip: animation.isDismissed
+                ? MaterialLocalizations.of(context).openAppDrawerTooltip
+                : MaterialLocalizations.of(context).backButtonTooltip,
+            onPressed: () {
+              final FloatingSearchAppBarState? bar = FloatingSearchAppBar.of(context);
+              if (bar?.isOpen == true) {
+                bar?.close();
+              } else {
+                Scaffold.of(context).openDrawer();
+              }
+            },
+            icon: icon!,
+          ),
           child: RotatedBox(
             quarterTurns: (isLTR ? 0 : 2) + (isLeading ? 0 : 2),
             child: AnimatedIcon(
@@ -81,21 +66,6 @@ class FloatingSearchBarAction extends StatelessWidget {
               color: color,
               size: size,
             ),
-          ),
-          animation: animation,
-          builder: (context, icon) => CircularButton(
-            tooltip: animation.isDismissed
-                ? MaterialLocalizations.of(context).openAppDrawerTooltip
-                : MaterialLocalizations.of(context).backButtonTooltip,
-            onPressed: () {
-              final bar = FloatingSearchAppBar.of(context);
-              if (bar?.isOpen == true) {
-                bar?.close();
-              } else {
-                Scaffold.of(context).openDrawer();
-              }
-            },
-            icon: icon!,
           ),
         );
       },
@@ -115,13 +85,13 @@ class FloatingSearchBarAction extends StatelessWidget {
     return FloatingSearchBarAction(
       showIfOpened: true,
       showIfClosed: showIfClosed,
-      builder: (context, animation) {
-        final bar = FloatingSearchAppBar.of(context)!;
+      builder: (BuildContext context, Animation<double> animation) {
+        final FloatingSearchAppBarState bar = FloatingSearchAppBar.of(context)!;
 
         return ValueListenableBuilder<String>(
           valueListenable: bar.queryNotifer,
-          builder: (context, query, _) {
-            final isEmpty = query.isEmpty;
+          builder: (BuildContext context, String query, _) {
+            final bool isEmpty = query.isEmpty;
 
             return SearchToClear(
               isEmpty: isEmpty,
@@ -153,15 +123,15 @@ class FloatingSearchBarAction extends StatelessWidget {
     return FloatingSearchBarAction(
       showIfClosed: showIfClosed,
       showIfOpened: true,
-      builder: (context, animation) {
-        final canPop = Navigator.canPop(context);
+      builder: (BuildContext context, Animation<double> animation) {
+        final bool canPop = Navigator.canPop(context);
 
         return CircularButton(
           tooltip: MaterialLocalizations.of(context).backButtonTooltip,
           size: size,
           icon: Icon(Icons.arrow_back, color: color, size: size),
           onPressed: () {
-            final bar = FloatingSearchAppBar.of(context)!;
+            final FloatingSearchAppBarState bar = FloatingSearchAppBar.of(context)!;
 
             if (bar.isOpen && !bar.isAlwaysOpened) {
               bar.close();
@@ -184,15 +154,44 @@ class FloatingSearchBarAction extends StatelessWidget {
     bool showIfClosed = true,
   }) {
     return FloatingSearchBarAction(
+      showIfClosed: showIfClosed,
+      showIfOpened: showIfOpened,
       child: CircularButton(
         size: size,
         icon: icon is IconData ? Icon(icon) : icon,
         onPressed: onTap,
       ),
-      showIfClosed: showIfClosed,
-      showIfOpened: showIfOpened,
     );
   }
+  /// The action.
+  ///
+  /// Typically a [CircularButton].
+  final Widget? child;
+
+  /// A builder that can be used when the action needs
+  /// to react to changes in its [FloatingSearchBar].
+  ///
+  /// View [FloatingSearchBarAction.searchToClear] for an example.
+  final Widget Function(BuildContext context, Animation<double> animation)?
+      builder;
+
+  /// Whether this action should be shown when the [FloatingSearchBar]
+  /// is opened.
+  ///
+  /// If false, this action will be animated out when the
+  /// bar [FloatingSearchBar] closed.
+  final bool showIfOpened;
+
+  /// Whether this action should be shown when the [FloatingSearchBar]
+  /// is closed.
+  ///
+  /// If false, this action will be animated out when the
+  /// bar [FloatingSearchBar] closed.
+  final bool showIfClosed;
+
+  /// Whether this [FloatingSearchBarAction] is shown when opened
+  /// and when closed.
+  bool get isAlwaysShown => showIfOpened && showIfClosed;
 
   @override
   Widget build(BuildContext context) {
@@ -206,21 +205,21 @@ class FloatingSearchBarAction extends StatelessWidget {
 
 /// Creates a row for [FloatingSearchBarActions].
 class FloatingSearchActionBar extends StatelessWidget {
-  final Animation<double> animation;
-  final List<Widget> actions;
-  final IconThemeData? iconTheme;
   const FloatingSearchActionBar({
-    Key? key,
+    super.key,
     required this.animation,
     required this.actions,
     this.iconTheme,
-  }) : super(key: key);
+  });
+  final Animation<double> animation;
+  final List<Widget> actions;
+  final IconThemeData? iconTheme;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: animation,
-      builder: (context, child) => IconTheme(
+      builder: (BuildContext context, Widget? child) => IconTheme(
         data: iconTheme ?? Theme.of(context).iconTheme,
         child: Row(
           children: _mapActions(),
@@ -230,20 +229,20 @@ class FloatingSearchActionBar extends StatelessWidget {
   }
 
   List<Widget> _mapActions() {
-    final animation = ValleyingTween().animate(this.animation);
-    final isOpen = this.animation.value >= 0.5;
+    final Animation<double> animation = ValleyingTween().animate(this.animation);
+    final bool isOpen = this.animation.value >= 0.5;
 
-    var openCount = 0;
-    var closedCount = 0;
-    for (final action in actions) {
+    int openCount = 0;
+    int closedCount = 0;
+    for (final Widget action in actions) {
       if (action is FloatingSearchBarAction) {
         if (action.showIfOpened) openCount++;
         if (action.showIfClosed) closedCount++;
       }
     }
 
-    final currentActions = List<Widget>.from(actions)
-      ..removeWhere((action) {
+    final List<Widget> currentActions = List<Widget>.from(actions)
+      ..removeWhere((Widget action) {
         if (action is FloatingSearchBarAction) {
           return (isOpen && !action.showIfOpened) ||
               (!isOpen && !action.showIfClosed);
@@ -252,15 +251,14 @@ class FloatingSearchActionBar extends StatelessWidget {
         }
       });
 
-    return currentActions.map((action) {
+    return currentActions.map((Widget action) {
       if (action is FloatingSearchBarAction) {
         if (action.isAlwaysShown) return action;
 
-        final index = currentActions.reversed.toList().indexOf(action);
-        final shouldScale = index <= ((isOpen ? closedCount : openCount) - 1);
+        final int index = currentActions.reversed.toList().indexOf(action);
+        final bool shouldScale = index <= ((isOpen ? closedCount : openCount) - 1);
         if (shouldScale) {
           return ScaleTransition(
-            alignment: Alignment.center,
             scale: animation,
             child: action,
           );

@@ -5,13 +5,13 @@ import 'package:flutter/material.dart'
 
 /// A base Widget for implicit animations.
 abstract class ImplicitlyAnimatedWidget extends StatefulWidget {
-  final Duration duration;
-  final Curve curve;
   const ImplicitlyAnimatedWidget(
     Key? key,
     this.duration,
     this.curve,
   ) : super(key: key);
+  final Duration duration;
+  final Curve curve;
 }
 
 abstract class ImplicitlyAnimatedWidgetState<T,

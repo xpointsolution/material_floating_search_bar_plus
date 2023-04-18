@@ -6,10 +6,6 @@ import 'implicitly_animated_widget.dart';
 // ignore_for_file: public_member_api_docs
 
 class ImplicitAnimationBuilder<T> extends ImplicitlyAnimatedWidget {
-  final T Function(T a, T b, double t) lerp;
-  final T value;
-  final Widget Function(BuildContext context, T value, Widget? child) builder;
-  final Widget? child;
   const ImplicitAnimationBuilder({
     Key? key,
     required Duration duration,
@@ -19,6 +15,10 @@ class ImplicitAnimationBuilder<T> extends ImplicitlyAnimatedWidget {
     required this.builder,
     this.child,
   }) : super(key, duration, curve);
+  final T Function(T a, T b, double t) lerp;
+  final T value;
+  final Widget Function(BuildContext context, T value, Widget? child) builder;
+  final Widget? child;
 
   @override
   _ImplicitAnimationBuilderState createState() =>
