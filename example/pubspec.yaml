@@ -9,12 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.4
-  implicitly_animated_reorderable_list: ^0.4.2
-  material_design_icons_flutter: ^5.0.6595
+  http: ^0.13.5
+  implicitly_animated_reorderable_list_2: ^0.5.1
+  material_design_icons_flutter: ^6.0.7096
   material_floating_search_bar:
     path: ../
-  provider: ^6.0.1
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:
