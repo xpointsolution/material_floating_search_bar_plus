@@ -1,20 +1,21 @@
 # Material Floating Search Bar
 
 [![pub package](https://img.shields.io/pub/v/material_floating_search_bar.svg)](https://pub.dartlang.org/packages/material_floating_search_bar)
-[![GitHub Stars](https://img.shields.io/github/stars/bxqm/material_floating_search_bar.svg?logo=github)](https://github.com/bxqm/material_floating_search_bar)
+[![GitHub Stars](https://img.shields.io/github/stars/AlwinFassbender/material_floating_search_bar.svg?logo=github)](https://github.com/AlwinFassbender/material_floating_search_bar)
 
+Continued version of the material_floating_search_bar package, as the original repository (https://github.com/bxqm/material_floating_search_bar) was deleted, and the pub.dev package discontinued. 
 
 A Flutter implementation of an expandable floating search bar, also known as persistent search, similar to the ones used extensively by Google in their own apps.
 
 <p>
-  <img width="216px" alt="CircularFloatingSearchBarTransition" src="https://raw.githubusercontent.com/bxqm/material_floating_search_bar/master/assets/circular_example.gif"/>
+  <img width="216px" alt="CircularFloatingSearchBarTransition" src="https://raw.githubusercontent.com/AlwinFassbender/material_floating_search_bar/master/assets/circular_example.gif"/>
 
-  <img width="216px" alt="ExpandingFloatingSearchBarTransition" src="https://raw.githubusercontent.com/bxqm/material_floating_search_bar/master/assets/expanding_example.gif"/>
+  <img width="216px" alt="ExpandingFloatingSearchBarTransition" src="https://raw.githubusercontent.com/AlwinFassbender/material_floating_search_bar/master/assets/expanding_example.gif"/>
 
-  <img width="216px" alt="SlideFadeFloatingSearchBarTransition" src="https://raw.githubusercontent.com/bxqm/material_floating_search_bar/master/assets/slide_fade_example.gif"/>
+  <img width="216px" alt="SlideFadeFloatingSearchBarTransition" src="https://raw.githubusercontent.com/AlwinFassbender/material_floating_search_bar/master/assets/slide_fade_example.gif"/>
 </p>
 
-Click [here](https://github.com/bxqm/material_floating_search_bar/blob/master/example/lib/main.dart) to view the full example.
+Click [here](https://github.com/AlwinFassbender/material_floating_search_bar/blob/master/example/lib/main.dart) to view the full example.
 
 ## Installing
 
@@ -28,7 +29,7 @@ Install packages from the command line
 flutter packages get
 ```
 
-If you like this package, consider supporting it by giving it a star on [GitHub](https://github.com/bxqm/material_floating_search_bar) and a like on [pub.dev](https://pub.dev/packages/material_floating_search_bar) :heart:
+If you like this package, consider supporting it by giving it a star on [GitHub](https://github.com/AlwinFassbender/material_floating_search_bar) and a like on [pub.dev](https://pub.dev/packages/material_floating_search_bar) :heart:
 
 ## Usage
 
