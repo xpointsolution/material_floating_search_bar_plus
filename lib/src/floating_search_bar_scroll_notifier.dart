@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 /// when the user scrolls down and shown again when the user scrolls
 /// up.
 class FloatingSearchBarScrollNotifier extends StatelessWidget {
-
   /// Creates a [FloatingSearchBarScrollNotifier].
   ///
   /// This widget is useful, if you want to implement the common pattern
@@ -19,6 +18,7 @@ class FloatingSearchBarScrollNotifier extends StatelessWidget {
     super.key,
     required this.child,
   });
+
   /// The vertically scrollable child.
   final Widget child;
 
@@ -41,6 +41,7 @@ class FloatingSearchBarScrollNotifier extends StatelessWidget {
               maxScrollExtent: metrics.maxScrollExtent,
               minScrollExtent: metrics.minScrollExtent,
               viewportDimension: metrics.viewportDimension,
+              devicePixelRatio: metrics.devicePixelRatio,
             );
           }
 
