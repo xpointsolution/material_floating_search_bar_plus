@@ -7,6 +7,8 @@ Continued version of the [material_floating_search_bar package](https://pub.dev/
 
 A Flutter implementation of an expandable floating search bar, also known as [persistent search](https://m2.material.io/design/navigation/search.html#persistent-search), similar to the ones used extensively by Google in their own apps.
 
+If you like this package, consider supporting it by giving it a star on [GitHub](https://github.com/AlwinFassbender/material_floating_search_bar) and a like on [pub.dev](https://pub.dev/packages/material_floating_search_bar) :heart:
+
 <p>
   <img width="216px" alt="CircularFloatingSearchBarTransition" src="https://raw.githubusercontent.com/AlwinFassbender/material_floating_search_bar/master/assets/circular_example.gif"/>
 
@@ -19,17 +21,7 @@ Click [here](https://github.com/AlwinFassbender/material_floating_search_bar/blo
 
 ## Installing
 
-Add it to your `pubspec.yaml` file:
-```yaml
-dependencies:
-  material_floating_search_bar: ^0.4.0
-```
-Install packages from the command line
-```
-flutter packages get
-```
-
-If you like this package, consider supporting it by giving it a star on [GitHub](https://github.com/AlwinFassbender/material_floating_search_bar) and a like on [pub.dev](https://pub.dev/packages/material_floating_search_bar) :heart:
+See [Installing](https://pub.dev/packages/material_floating_search_bar_2/install)
 
 ## Usage
 
