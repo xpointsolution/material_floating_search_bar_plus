@@ -5,7 +5,7 @@ repository: https://github.com/AlwinFassbender/material_floating_search_bar
 issue_tracker: https://github.com/AlwinFassbender/material_floating_search_bar/issues
 
 environment:
-  sdk: '>=3.0.0-0 <4.0.0'
+  sdk: '>=3.0.0-417.1.beta <4.0.0'
 
 dependencies:
   flutter:
