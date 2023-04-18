@@ -1,3 +1,8 @@
+## 0.4.1
+
+* **Fixed** Dart sdk constraints
+* **Improved** readme
+
 ## 0.4.0
 
 * **Updated** Dart sdk constraints
