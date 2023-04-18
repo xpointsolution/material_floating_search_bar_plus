@@ -38,7 +38,7 @@
 build/
 flutter_*.png
 linked_*.ds
-pubspec.lock
+/pubspec.lock
 unlinked.ds
 unlinked_spec.ds
 
