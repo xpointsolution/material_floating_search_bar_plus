@@ -41,7 +41,8 @@ class FloatingSearchBarScrollNotifier extends StatelessWidget {
               maxScrollExtent: metrics.maxScrollExtent,
               minScrollExtent: metrics.minScrollExtent,
               viewportDimension: metrics.viewportDimension,
-              devicePixelRatio: metrics.devicePixelRatio,
+              // TODO: Uncomment when Flutter channel stable gets this
+              // devicePixelRatio: metrics.devicePixelRatio,
             );
           }
 

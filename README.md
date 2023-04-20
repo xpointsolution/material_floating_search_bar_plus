@@ -1,6 +1,6 @@
 # Material Floating Search Bar
 
-[![pub package](https://img.shields.io/pub/v/material_floating_search_bar.svg)](https://pub.dartlang.org/packages/material_floating_search_bar)
+[![pub package](https://img.shields.io/pub/v/material_floating_search_bar_2.svg)](https://pub.dartlang.org/packages/material_floating_search_bar_2)
 [![GitHub Stars](https://img.shields.io/github/stars/AlwinFassbender/material_floating_search_bar.svg?logo=github)](https://github.com/AlwinFassbender/material_floating_search_bar)
 
 Continued version of the [material_floating_search_bar package](https://pub.dev/packages/material_floating_search_bar), as the [original repository](https://github.com/bxqm/material_floating_search_bar) was deleted. This package serves as a continuation of bxqm's popular work, similar to the [implicitly_animated_reorderable_list_2 package](https://pub.dev/packages/implicitly_animated_reorderable_list_2).

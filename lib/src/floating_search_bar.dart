@@ -68,7 +68,7 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
     this.textInputAction = TextInputAction.search,
     this.textInputType = TextInputType.text,
     this.autocorrect = true,
-    this.toolbarOptions,
+    this.contextMenuBuilder,
     Duration? showAfter,
     this.isScrollControlled = false,
     this.physics,
@@ -360,11 +360,11 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
   /// {@endtemplate}
   final bool autocorrect;
 
-  /// {@template floating_search_bar.toolbarOptions}
-  /// The [ToolbarOptions] of the [TextField] of
+  /// {@template floating_search_bar. contextMenuBuilder}
+  /// The [EditableTextContextMenuBuilder] of the [TextField] of
   /// this `FloatingSearchBar`.
   /// {@endtemplate}
-  final ToolbarOptions? toolbarOptions;
+  final EditableTextContextMenuBuilder? contextMenuBuilder;
 
   /// Hides the `FloatingSearchBar` intially for the specified
   /// duration and then translates it from the top to its position.
@@ -748,7 +748,7 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
       automaticallyImplyDrawerHamburger:
           widget.automaticallyImplyDrawerHamburger,
       automaticallyImplyBackButton: widget.automaticallyImplyBackButton,
-      toolbarOptions: widget.toolbarOptions,
+      contextMenuBuilder: widget.contextMenuBuilder,
       transitionDuration: widget.transitionDuration,
       transitionCurve: widget.transitionCurve,
       textInputAction: widget.textInputAction,

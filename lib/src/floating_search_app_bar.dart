@@ -52,7 +52,7 @@ class FloatingSearchAppBar extends ImplicitlyAnimatedWidget {
     this.textInputAction = TextInputAction.search,
     this.textInputType = TextInputType.text,
     this.autocorrect = true,
-    this.toolbarOptions,
+    this.contextMenuBuilder,
     this.onKeyEvent,
   })  : assert(progress == null || (progress is num || progress is bool)),
         super(key, implicitDuration, implicitCurve);
@@ -182,8 +182,8 @@ class FloatingSearchAppBar extends ImplicitlyAnimatedWidget {
   /// {@macro floating_search_bar.autocorrect}
   final bool autocorrect;
 
-  /// {@macro floating_search_bar.toolbarOptions}
-  final ToolbarOptions? toolbarOptions;
+  /// {@macro floating_search_bar. contextMenuBuilder}
+  final EditableTextContextMenuBuilder? contextMenuBuilder;
 
   final ValueChanged<KeyEvent>? onKeyEvent;
 
@@ -608,7 +608,7 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
             scrollPhysics: const NeverScrollableScrollPhysics(),
             focusNode: _input.node,
             autocorrect: widget.autocorrect,
-            toolbarOptions: widget.toolbarOptions,
+            contextMenuBuilder: widget.contextMenuBuilder,
             cursorColor: style.accentColor,
             style: style.queryStyle,
             textInputAction: widget.textInputAction,
