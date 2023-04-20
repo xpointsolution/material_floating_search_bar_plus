@@ -8,7 +8,6 @@ import 'widgets.dart';
 /// A Widget that animates between a search and
 /// a clear icon.
 class SearchToClear extends StatelessWidget {
-
   /// Creates a Widget that animates between a search and
   /// a clear icon.
   const SearchToClear({
@@ -21,6 +20,7 @@ class SearchToClear extends StatelessWidget {
     this.searchButtonSemanticLabel = 'Search',
     this.clearButtonSemanticLabel = 'Clear',
   });
+
   /// If `true`, the search icon will be shown.
   final bool isEmpty;
   final Duration duration;

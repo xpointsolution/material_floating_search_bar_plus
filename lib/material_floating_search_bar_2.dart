@@ -1,4 +1,3 @@
-
 export 'src/floating_search_bar.dart';
 export 'src/floating_search_bar_actions.dart';
 export 'src/floating_search_bar_scroll_notifier.dart';

@@ -26,7 +26,8 @@ class AnimatedValue extends StatelessWidget {
       curve: curve,
       duration: duration,
       lerp: (double a, double b, double t) => lerpDouble(a, b, t)!,
-      builder: (BuildContext context, double value, _) => builder(context, value),
+      builder: (BuildContext context, double value, _) =>
+          builder(context, value),
     );
   }
 }
