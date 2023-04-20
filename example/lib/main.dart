@@ -366,7 +366,16 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FloatingSearchBar(
-        toolbarOptions: const ToolbarOptions(paste: true, cut: true),
+        contextMenuBuilder:
+            (BuildContext context, EditableTextState editableTextState) {
+          final List<ContextMenuButtonItem> buttonItems =
+              editableTextState.contextMenuButtonItems;
+
+          return AdaptiveTextSelectionToolbar.buttonItems(
+            anchors: editableTextState.contextMenuAnchors,
+            buttonItems: buttonItems,
+          );
+        },
         controller: controller,
         title: const Text(
           'Aschaffenburg',
