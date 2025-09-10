@@ -1,3 +1,10 @@
+## 1.0.0
+* **Breaking** Updated to work with latest flutter 3.35.0
+* **Breaking** Updated dependencies to work with latest flutter
+* **Improved** Removed default text from `FloatingSearchBar`.`hint`
+* **Improved** Recreated example with latest flutter
+* **Improved** Updated readme
+
 ## 0.4.2
 
 * **Breaking** Replaced deprecated `ToolbarOptions` with `EditableTextContextMenuBuilder`

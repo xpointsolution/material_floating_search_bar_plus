@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:implicitly_animated_reorderable_list_2/implicitly_animated_reorderable_list_2.dart';
 import 'package:implicitly_animated_reorderable_list_2/transitions.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
+import 'package:material_floating_search_bar_plus/material_floating_search_bar_plus.dart';
 import 'package:provider/provider.dart';
 
 import 'place.dart';
@@ -13,9 +13,7 @@ import 'search_model.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.white,
-    ),
+    const SystemUiOverlayStyle(systemNavigationBarColor: Colors.white),
   );
 
   runApp(
@@ -23,9 +21,7 @@ void main() {
       title: 'Material Floating Search Bar Example',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
-        iconTheme: const IconThemeData(
-          color: Color(0xFF4d4d4d),
-        ),
+        iconTheme: const IconThemeData(color: Color(0xFF4d4d4d)),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           elevation: 4,
         ),
@@ -49,9 +45,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const Home(),
     );
   }
@@ -79,11 +73,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      drawer: Drawer(
-        child: Container(
-          width: 200,
-        ),
-      ),
+      drawer: Drawer(child: Container(width: 200)),
       body: buildSearchBar(),
     );
   }
@@ -91,14 +81,9 @@ class _HomeState extends State<Home> {
   Widget buildSearchBar() {
     final List<FloatingSearchBarAction> actions = <FloatingSearchBarAction>[
       FloatingSearchBarAction(
-        child: CircularButton(
-          icon: const Icon(Icons.place),
-          onPressed: () {},
-        ),
+        child: CircularButton(icon: const Icon(Icons.place), onPressed: () {}),
       ),
-      FloatingSearchBarAction.searchToClear(
-        showIfClosed: false,
-      ),
+      FloatingSearchBarAction.searchToClear(showIfClosed: false),
     ];
 
     final bool isPortrait =
@@ -107,30 +92,30 @@ class _HomeState extends State<Home> {
     return Consumer<SearchModel>(
       builder: (BuildContext context, SearchModel model, _) =>
           FloatingSearchBar(
-        automaticallyImplyBackButton: false,
-        controller: controller,
-        hint: 'חיפוש...',
-        iconColor: Colors.grey,
-        transitionDuration: const Duration(milliseconds: 800),
-        transitionCurve: Curves.easeInOutCubic,
-        physics: const BouncingScrollPhysics(),
-        axisAlignment: isPortrait ? 0.0 : -1.0,
-        openAxisAlignment: 0.0,
-        actions: actions,
-        progress: model.isLoading,
-        debounceDelay: const Duration(milliseconds: 500),
-        onQueryChanged: model.onQueryChanged,
-        onKeyEvent: (KeyEvent keyEvent) {
-          if (keyEvent.logicalKey == LogicalKeyboardKey.escape) {
-            controller.query = '';
-            controller.close();
-          }
-        },
-        scrollPadding: EdgeInsets.zero,
-        transition: CircularFloatingSearchBarTransition(spacing: 16),
-        builder: (BuildContext context, _) => buildExpandableBody(model),
-        body: buildBody(),
-      ),
+            automaticallyImplyBackButton: false,
+            controller: controller,
+            hint: 'Search...',
+            iconColor: Colors.grey,
+            transitionDuration: const Duration(milliseconds: 800),
+            transitionCurve: Curves.easeInOutCubic,
+            physics: const BouncingScrollPhysics(),
+            axisAlignment: isPortrait ? 0.0 : -1.0,
+            openAxisAlignment: 0.0,
+            actions: actions,
+            progress: model.isLoading,
+            debounceDelay: const Duration(milliseconds: 500),
+            onQueryChanged: model.onQueryChanged,
+            onKeyEvent: (KeyEvent keyEvent) {
+              if (keyEvent.logicalKey == LogicalKeyboardKey.escape) {
+                controller.query = '';
+                controller.close();
+              }
+            },
+            scrollPadding: EdgeInsets.zero,
+            transition: CircularFloatingSearchBarTransition(spacing: 16),
+            builder: (BuildContext context, _) => buildExpandableBody(model),
+            body: buildBody(),
+          ),
     );
   }
 
@@ -164,20 +149,25 @@ class _HomeState extends State<Home> {
           physics: const NeverScrollableScrollPhysics(),
           items: model.suggestions,
           insertDuration: const Duration(milliseconds: 700),
-          itemBuilder: (BuildContext context, Animation<double> animation,
-              Place item, _) {
-            return SizeFadeTransition(
-              animation: animation,
-              child: buildItem(context, item),
-            );
-          },
+          itemBuilder:
+              (
+                BuildContext context,
+                Animation<double> animation,
+                Place item,
+                _,
+              ) {
+                return SizeFadeTransition(
+                  animation: animation,
+                  child: buildItem(context, item),
+                );
+              },
           updateItemBuilder:
               (BuildContext context, Animation<double> animation, Place item) {
-            return FadeTransition(
-              opacity: animation,
-              child: buildItem(context, item),
-            );
-          },
+                return FadeTransition(
+                  opacity: animation,
+                  child: buildItem(context, item),
+                );
+              },
           areItemsTheSame: (Place a, Place b) => a == b,
         ),
       ),
@@ -220,15 +210,13 @@ class _HomeState extends State<Home> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        place.name,
-                        style: textTheme.titleMedium,
-                      ),
+                      Text(place.name, style: textTheme.titleMedium),
                       const SizedBox(height: 2),
                       Text(
                         place.level2Address,
-                        style: textTheme.bodyMedium
-                            ?.copyWith(color: Colors.grey.shade600),
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey.shade600,
+                        ),
                       ),
                     ],
                   ),
@@ -255,7 +243,7 @@ class _HomeState extends State<Home> {
       selectedFontSize: 11.5,
       unselectedFontSize: 11.5,
       unselectedItemColor: const Color(0xFF4d4d4d),
-      items: const <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(MdiIcons.homeVariantOutline),
           label: 'Explore',
@@ -294,10 +282,7 @@ class Map extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
-      children: <Widget>[
-        buildMap(),
-        buildFabs(),
-      ],
+      children: <Widget>[buildMap(), buildFabs()],
     );
   }
 
@@ -326,7 +311,7 @@ class Map extends StatelessWidget {
             const SizedBox(height: 16),
             FloatingActionButton(
               onPressed: () {},
-              heroTag: 'öslkföl',
+              heroTag: 'aslkföl',
               backgroundColor: Colors.blue,
               child: const Icon(Icons.directions),
             ),
@@ -337,17 +322,12 @@ class Map extends StatelessWidget {
   }
 
   Widget buildMap() {
-    return Image.asset(
-      'assets/map.jpg',
-      fit: BoxFit.cover,
-    );
+    return Image.asset('assets/map.jpg', fit: BoxFit.cover);
   }
 }
 
 class SearchBar extends StatefulWidget {
-  const SearchBar({
-    super.key,
-  });
+  const SearchBar({super.key});
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -368,18 +348,16 @@ class _SearchBarState extends State<SearchBar> {
       body: FloatingSearchBar(
         contextMenuBuilder:
             (BuildContext context, EditableTextState editableTextState) {
-          final List<ContextMenuButtonItem> buttonItems =
-              editableTextState.contextMenuButtonItems;
+              final List<ContextMenuButtonItem> buttonItems =
+                  editableTextState.contextMenuButtonItems;
 
-          return AdaptiveTextSelectionToolbar.buttonItems(
-            anchors: editableTextState.contextMenuAnchors,
-            buttonItems: buttonItems,
-          );
-        },
+              return AdaptiveTextSelectionToolbar.buttonItems(
+                anchors: editableTextState.contextMenuAnchors,
+                buttonItems: buttonItems,
+              );
+            },
         controller: controller,
-        title: const Text(
-          'Aschaffenburg',
-        ),
+        title: const Text('Aschaffenburg'),
         hint: 'Search for a place',
         builder: (BuildContext context, _) {
           return Container();
@@ -400,9 +378,7 @@ class SomeScrollableContent extends StatelessWidget {
         itemCount: 100,
         separatorBuilder: (BuildContext context, int index) => const Divider(),
         itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            title: Text('Item $index'),
-          );
+          return ListTile(title: Text('Item $index'));
         },
       ),
     );
@@ -424,9 +400,7 @@ class FloatingSearchAppBarExample extends StatelessWidget {
         itemCount: 100,
         separatorBuilder: (BuildContext context, int index) => const Divider(),
         itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            title: Text('Item $index'),
-          );
+          return ListTile(title: Text('Item $index'));
         },
       ),
     );

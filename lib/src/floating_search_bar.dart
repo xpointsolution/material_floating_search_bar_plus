@@ -5,7 +5,7 @@ import 'package:flutter/material.dart'
     hide ImplicitlyAnimatedWidget, ImplicitlyAnimatedWidgetState;
 import 'package:flutter/services.dart';
 
-import '../material_floating_search_bar_2.dart';
+import '../material_floating_search_bar_plus.dart';
 
 import 'floating_search_bar_dismissable.dart';
 import 'search_bar_style.dart';
@@ -17,8 +17,8 @@ part 'floating_search_app_bar.dart';
 
 // ignore_for_file: public_member_api_docs
 
-typedef FloatingSearchBarBuilder = Widget Function(
-    BuildContext context, Animation<double> transition);
+typedef FloatingSearchBarBuilder =
+    Widget Function(BuildContext context, Animation<double> transition);
 
 /// An expandable material floating search bar with customizable
 /// transitions similar to the ones used extensively
@@ -56,7 +56,7 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
     this.transitionCurve = Curves.ease,
     this.debounceDelay = Duration.zero,
     this.title,
-    this.hint = 'Search...',
+    this.hint,
     this.actions,
     this.leadingActions,
     this.onQueryChanged,
@@ -77,9 +77,9 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
     this.showCursor = true,
     bool initiallyHidden = false,
     this.onKeyEvent,
-  })  : showAfter =
-            showAfter ?? (initiallyHidden ? const Duration(days: 1) : null),
-        super(key, implicitDuration, implicitCurve);
+  }) : showAfter =
+           showAfter ?? (initiallyHidden ? const Duration(days: 1) : null),
+       super(key, implicitDuration, implicitCurve);
 
   /// The widget displayed below the `FloatingSearchBar`.
   ///
@@ -360,7 +360,7 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
   /// {@endtemplate}
   final bool autocorrect;
 
-  /// {@template floating_search_bar. contextMenuBuilder}
+  /// {@template floating_search_bar.contextMenuBuilder}
   /// The [EditableTextContextMenuBuilder] of the [TextField] of
   /// this `FloatingSearchBar`.
   /// {@endtemplate}
@@ -410,22 +410,27 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
   }
 }
 
-class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
-    FloatingSearchBarStyle, FloatingSearchBar> {
+class FloatingSearchBarState
+    extends
+        ImplicitlyAnimatedWidgetState<
+          FloatingSearchBarStyle,
+          FloatingSearchBar
+        > {
   final GlobalKey<FloatingSearchAppBarState> barKey = GlobalKey();
   FloatingSearchAppBarState? get barState => barKey.currentState;
 
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    duration: duration,
-  )..addStatusListener((AnimationStatus status) {
-      if (status == AnimationStatus.dismissed) {
-        _onClosed();
-      }
-    });
+  late final AnimationController _controller =
+      AnimationController(vsync: this, duration: duration)
+        ..addStatusListener((AnimationStatus status) {
+          if (status == AnimationStatus.dismissed) {
+            _onClosed();
+          }
+        });
 
-  late CurvedAnimation animation =
-      CurvedAnimation(parent: _controller, curve: curve);
+  late CurvedAnimation animation = CurvedAnimation(
+    parent: _controller,
+    curve: curve,
+  );
 
   late final AnimationController _translateController = AnimationController(
     vsync: this,
@@ -609,8 +614,8 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
     final SizedBox searchBar = SizedBox.expand(
       child: isAvailableSwipeBack
           ? _getSearchBarWidget()
-          : WillPopScope(
-              onWillPop: _onPop,
+          : PopScope(
+              onPopInvokedWithResult: (bool popped, _) => _onPop(),
               child: _getSearchBarWidget(),
             ),
     );
@@ -618,18 +623,16 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
     if (widget.body != null) {
       final NotificationListener<FloatingSearchBarScrollNotification> body =
           NotificationListener<FloatingSearchBarScrollNotification>(
-        onNotification: _onBodyScroll,
-        child: widget.body!,
-      );
+            onNotification: _onBodyScroll,
+            child: widget.body!,
+          );
 
       return Stack(
         clipBehavior: Clip.none,
         fit: StackFit.expand,
         children: <Widget>[
           body,
-          RepaintBoundary(
-            child: searchBar,
-          ),
+          RepaintBoundary(child: searchBar),
         ],
       );
     } else {
@@ -646,10 +649,7 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
           animation: animation,
           builder: (BuildContext context, _) => Stack(
             clipBehavior: Clip.none,
-            children: <Widget>[
-              _buildBackdrop(),
-              _buildSearchBar(),
-            ],
+            children: <Widget>[_buildBackdrop(), _buildSearchBar()],
           ),
         ),
       ),
@@ -672,7 +672,8 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
             curve: const Interval(0.95, 1.0),
           ),
           builder: (BuildContext context, Widget? child) => Material(
-            elevation: transition.lerpElevation() *
+            elevation:
+                transition.lerpElevation() *
                 (1.0 - interval(0.95, 1.0, _translateAnimation.value)),
             shadowColor: style.shadowColor,
             borderRadius: borderRadius,
@@ -709,7 +710,9 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
       duration: isAnimating ? duration : Duration.zero,
       curve: widget.transitionCurve,
       alignment: Alignment(
-          isOpen ? style.openAxisAlignment : style.axisAlignment, -1.0),
+        isOpen ? style.openAxisAlignment : style.axisAlignment,
+        -1.0,
+      ),
       child: transition.isBodyInsideSearchBar
           ? bar
           : Column(
@@ -821,7 +824,8 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
     return IgnorePointer(
       ignoring: v < 1.0,
       child: SizedBox(
-        width: (transition.isBodyInsideSearchBar
+        width:
+            (transition.isBodyInsideSearchBar
                 ? transition.lerpInnerWidth()
                 : transition.lerpWidth()) +
             transition.lerpMargin().horizontal,
@@ -878,26 +882,36 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
           widget.openAxisAlignment ?? widget.axisAlignment ?? 0.0,
       backgroundColor: widget.backgroundColor ?? theme.cardColor,
       shadowColor: widget.shadowColor ?? Colors.black45,
-      backdropColor: widget.backdropColor ??
+      backdropColor:
+          widget.backdropColor ??
           widget.transition?.backdropColor ??
           Colors.black26,
       border: widget.border ?? BorderSide.none,
       borderRadius: widget.borderRadius ?? BorderRadius.circular(4),
-      margins: (widget.margins ??
-              EdgeInsets.fromLTRB(
-                  8, MediaQuery.of(context).viewPadding.top + 6, 8, 0))
-          .resolve(direction),
-      padding: widget.padding?.resolve(direction) ??
+      margins:
+          (widget.margins ??
+                  EdgeInsets.fromLTRB(
+                    8,
+                    MediaQuery.of(context).viewPadding.top + 6,
+                    8,
+                    0,
+                  ))
+              .resolve(direction),
+      padding:
+          widget.padding?.resolve(direction) ??
           const EdgeInsets.symmetric(horizontal: 12),
-      insets: widget.insets?.resolve(direction) ??
+      insets:
+          widget.insets?.resolve(direction) ??
           const EdgeInsets.symmetric(horizontal: 8),
     );
   }
 
   @override
   FloatingSearchBarStyle lerp(
-          FloatingSearchBarStyle a, FloatingSearchBarStyle b, double t) =>
-      a.scaleTo(b, t);
+    FloatingSearchBarStyle a,
+    FloatingSearchBarStyle b,
+    double t,
+  ) => a.scaleTo(b, t);
 }
 
 /// A controller for a [FloatingSearchBar].
