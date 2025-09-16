@@ -527,7 +527,7 @@ class FloatingSearchBarState
 
     if (widget.scrollController != null &&
         widget.scrollController != _scrollController) {
-      _scrollController = widget.scrollController;
+      _scrollController = widget.scrollController!;
     }
 
     _assignController();
