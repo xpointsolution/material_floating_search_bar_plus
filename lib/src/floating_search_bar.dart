@@ -6,7 +6,6 @@ import 'package:flutter/material.dart'
 import 'package:flutter/services.dart';
 
 import '../material_floating_search_bar_plus.dart';
-
 import 'floating_search_bar_dismissable.dart';
 import 'search_bar_style.dart';
 import 'text_controller.dart';
@@ -859,7 +858,7 @@ class FloatingSearchBarState
   @override
   void dispose() {
     _controller.dispose();
-
+    _translateController.dispose();
     widget.controller?._searchBarState = null;
 
     super.dispose();
