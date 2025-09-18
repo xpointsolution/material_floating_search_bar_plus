@@ -1,3 +1,6 @@
+## 1.0.1
+* **Fixed** Dispose of Animation controller
+
 ## 1.0.0
 * **Breaking** Updated to work with latest flutter 3.35.0
 * **Breaking** Updated dependencies to work with latest flutter
